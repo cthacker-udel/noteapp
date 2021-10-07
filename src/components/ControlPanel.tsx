@@ -65,7 +65,7 @@ export const ControlPanel = (): JSX.Element => {
 			</Row>
 			<Row>
 				<Col>
-					{showModal && <EditNameModal editName={setCurrentNoteTitle} />}
+					{showModal && <EditNameModal editName={setCurrentNoteTitle} editModal={setShowModal} />}
 				</Col>
 			</Row>
 		</>
