@@ -1,24 +1,29 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, ButtonGroup, Badge } from 'react-bootstrap';
+import { Row, Col, ButtonGroup } from 'react-bootstrap';
 import { CreateNoteButton } from './CreateNoteButton';
 import { DeleteNoteButton } from './DeleteNoteButton';
 import { EditNameButton } from './EditNameButton';
 import { SaveNoteButton } from './SaveNoteButton';
 import { NoteViewer } from './NoteViewer';
 import { useState, useEffect } from 'react';
-import { SavedNotesContext } from '../context/SavedNotesContext';
 import { EditNameModal } from './EditNameModal';
 import { NoteTab } from './NoteTab';
+import { NotePagination } from './NotePagination';
+import { SavedNotesContext } from '../context/SavedNotesContext';
 
 export const ControlPanel = (): JSX.Element => {
-	const [currentNotes, setCurrentNotes] = useState<string[]>([]);
 	const [currentNoteTitle, setCurrentNoteTitle] = useState<string>('untitled');
+	const [currentNoteText, setCurrentNoteText] = useState<string>('');
 	const [showModal, setShowModal] = useState<boolean>(false);
+	const [noteNames, setNoteNames] = useState<string[]>([]);
 
 	useEffect(() => {
 		if (currentNoteTitle !== 'untitled') {
 			console.log(`name changed`);
 		}
+		const tmpNoteNames = [...noteNames];
+		tmpNoteNames.push(currentNoteTitle);
+		setNoteNames(tmpNoteNames);
 	}, [currentNoteTitle]);
 
 	useEffect(() => {
@@ -27,9 +32,16 @@ export const ControlPanel = (): JSX.Element => {
 
 	return (
 		<>
+			<SavedNotesContext.Provider value = {noteNames}>
+			</SavedNotesContext.Provider>
 			<Row>
 				<Col>
 					<p>Note Viewer Version 1.0.0</p>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<NotePagination currentNoteTitle={currentNoteTitle} />
 				</Col>
 			</Row>
 			<Row>
@@ -44,7 +56,7 @@ export const ControlPanel = (): JSX.Element => {
 			</Row>
 			<Row>
 				<Col>
-					<NoteViewer />
+					<NoteViewer onChange={ setCurrentNoteText } />
 				</Col>
 			</Row>
 			<Row style={{ textAlign: 'center', display: 'block' }}>
@@ -59,7 +71,7 @@ export const ControlPanel = (): JSX.Element => {
 						<EditNameButton clickFunc={setShowModal} currValue={showModal} />
 					</ButtonGroup>
 					<ButtonGroup>
-						<SaveNoteButton />
+						<SaveNoteButton fileName={currentNoteTitle} fileContent={currentNoteText} />
 					</ButtonGroup>
 				</Col>
 			</Row>
