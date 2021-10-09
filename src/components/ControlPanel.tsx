@@ -16,14 +16,18 @@ export const ControlPanel = (): JSX.Element => {
 	const [currentNoteText, setCurrentNoteText] = useState<string>('');
 	const [showModal, setShowModal] = useState<boolean>(false);
 	const [noteNames, setNoteNames] = useState<string[]>([]);
+	const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+	const appendName = () => {
+		const tmpNoteNames = [...noteNames];
+		tmpNoteNames[currentIndex] = currentNoteTitle;
+		setNoteNames(tmpNoteNames);
+	};
 
 	useEffect(() => {
 		if (currentNoteTitle !== 'untitled') {
 			console.log(`name changed`);
 		}
-		const tmpNoteNames = [...noteNames];
-		tmpNoteNames.push(currentNoteTitle);
-		setNoteNames(tmpNoteNames);
 	}, [currentNoteTitle]);
 
 	useEffect(() => {
@@ -77,7 +81,7 @@ export const ControlPanel = (): JSX.Element => {
 			</Row>
 			<Row>
 				<Col>
-					{showModal && <EditNameModal editName={setCurrentNoteTitle} editModal={setShowModal} />}
+					{showModal && <EditNameModal editName={setCurrentNoteTitle} editModal={setShowModal} addNoteName={appendName} />}
 				</Col>
 			</Row>
 		</>

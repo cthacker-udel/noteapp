@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form } from 'react-bootstrap';
-import { CurrentNoteText } from '../context/CurrentNoteTextContext';
-import React, { useState } from 'react';
+import React from 'react';
 
 export const NoteViewer = (props: { onChange: React.Dispatch<React.SetStateAction<string>> }): JSX.Element =>
 	<Form>

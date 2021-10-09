@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
-export const EditNameModal = (props: { editName: React.Dispatch<React.SetStateAction<string>>, editModal: React.Dispatch<React.SetStateAction<boolean>>}): JSX.Element => {
+export const EditNameModal = (props: { editName: React.Dispatch<React.SetStateAction<string>>, editModal: React.Dispatch<React.SetStateAction<boolean>>, addNoteName: () => void }): JSX.Element => {
 	const [show, setShow] = useState<boolean>(true);
 	const [currText, setCurrText] = useState<string>('');
 
@@ -25,7 +25,11 @@ export const EditNameModal = (props: { editName: React.Dispatch<React.SetStateAc
 					Note Viewer Version 1.0.0
 				</Form.Text>
 			</Form>
-			<Button variant="primary" onClick={ () => { setShow(false); props.editModal(false); } }>
+			<Button variant="primary" onClick={ () => {
+				setShow(false);
+				props.editModal(false);
+				props.addNoteName();
+			} }>
 				Save Name Change
 			</Button>
 		</Modal>
