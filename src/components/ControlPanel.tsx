@@ -37,53 +37,53 @@ export const ControlPanel = (): JSX.Element => {
 	return (
 		<>
 			<SavedNotesContext.Provider value = {noteNames}>
+				<Row>
+					<Col>
+						<p>Note Viewer Version 1.0.0</p>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<NotePagination currentNoteTitle={currentNoteTitle} />
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<NoteTab />
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<h4 style={{ textAlign: 'center' }}>{currentNoteTitle}</h4>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<NoteViewer onChange={ setCurrentNoteText } />
+					</Col>
+				</Row>
+				<Row style={{ textAlign: 'center', display: 'block' }}>
+					<Col>
+						<ButtonGroup className="me-2">
+							<CreateNoteButton />
+						</ButtonGroup>
+						<ButtonGroup className="me-2">
+							<DeleteNoteButton />
+						</ButtonGroup>
+						<ButtonGroup className="me-2">
+							<EditNameButton clickFunc={setShowModal} currValue={showModal} />
+						</ButtonGroup>
+						<ButtonGroup>
+							<SaveNoteButton fileName={currentNoteTitle} fileContent={currentNoteText} />
+						</ButtonGroup>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						{showModal && <EditNameModal editName={setCurrentNoteTitle} editModal={setShowModal} addNoteName={appendName} />}
+					</Col>
+				</Row>
 			</SavedNotesContext.Provider>
-			<Row>
-				<Col>
-					<p>Note Viewer Version 1.0.0</p>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<NotePagination currentNoteTitle={currentNoteTitle} />
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<NoteTab />
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<h4 style={{ textAlign: 'center' }}>{currentNoteTitle}</h4>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<NoteViewer onChange={ setCurrentNoteText } />
-				</Col>
-			</Row>
-			<Row style={{ textAlign: 'center', display: 'block' }}>
-				<Col>
-					<ButtonGroup className="me-2">
-						<CreateNoteButton />
-					</ButtonGroup>
-					<ButtonGroup className="me-2">
-						<DeleteNoteButton />
-					</ButtonGroup>
-					<ButtonGroup className="me-2">
-						<EditNameButton clickFunc={setShowModal} currValue={showModal} />
-					</ButtonGroup>
-					<ButtonGroup>
-						<SaveNoteButton fileName={currentNoteTitle} fileContent={currentNoteText} />
-					</ButtonGroup>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					{showModal && <EditNameModal editName={setCurrentNoteTitle} editModal={setShowModal} addNoteName={appendName} />}
-				</Col>
-			</Row>
 		</>
 	);
 };
