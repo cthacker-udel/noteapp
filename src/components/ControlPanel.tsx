@@ -10,6 +10,7 @@ import { EditNameModal } from './EditNameModal';
 import { NoteTab } from './NoteTab';
 import { NotePagination } from './NotePagination';
 import { SavedNotesContext } from '../context/SavedNotesContext';
+import { CreateNoteModal } from './CreateNoteModal';
 
 export const ControlPanel = (): JSX.Element => {
 	const [currentNoteTitle, setCurrentNoteTitle] = useState<string>('untitled');
@@ -17,6 +18,7 @@ export const ControlPanel = (): JSX.Element => {
 	const [showModal, setShowModal] = useState<boolean>(false);
 	const [noteNames, setNoteNames] = useState<string[]>([]);
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
+	const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
 	const appendName = () => {
 		const tmpNoteNames = [...noteNames];
@@ -65,7 +67,7 @@ export const ControlPanel = (): JSX.Element => {
 				<Row style={{ textAlign: 'center', display: 'block' }}>
 					<Col>
 						<ButtonGroup className="me-2">
-							<CreateNoteButton />
+							<CreateNoteButton clickFunc={setShowCreateModal} value={showCreateModal}/>
 						</ButtonGroup>
 						<ButtonGroup className="me-2">
 							<DeleteNoteButton />
@@ -81,6 +83,11 @@ export const ControlPanel = (): JSX.Element => {
 				<Row>
 					<Col>
 						{showModal && <EditNameModal editName={setCurrentNoteTitle} editModal={setShowModal} addNoteName={appendName} />}
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						{ showCreateModal && <CreateNoteModal editModal={setShowCreateModal}></CreateNoteModal> }
 					</Col>
 				</Row>
 			</SavedNotesContext.Provider>
