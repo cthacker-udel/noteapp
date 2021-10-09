@@ -87,7 +87,7 @@ export const ControlPanel = (): JSX.Element => {
 				</Row>
 				<Row>
 					<Col>
-						{ showCreateModal && <CreateNoteModal editModal={setShowCreateModal}></CreateNoteModal> }
+						{ showCreateModal && <CreateNoteModal editModal={setShowCreateModal} setNoteNames={setNoteNames} setCurrentIndex={setCurrentIndex} noteNames={noteNames} ></CreateNoteModal> }
 					</Col>
 				</Row>
 			</SavedNotesContext.Provider>
